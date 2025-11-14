@@ -102,7 +102,7 @@
         <% } %>
         
         <form action="process_edit.jsp" method="POST">
-            <input type="hidden" name="id" value="<%= studentId %>">
+            <input type="text" name="id" value="<%= studentId %>">
             
             <div class="form-group">
                 <label>Student Code</label>
@@ -112,12 +112,12 @@
             
             <div class="form-group">
                 <label>Full Name *</label>
-                <input type="text" name="full_name" value="<%= fullName %>" required>
+                <input type="text" name="full_name" value="<%= fullName %>" >
             </div>
             
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="email" value="<%= email %>">
+                <input type="text" name="email" value="<%= email %>">
             </div>
             
             <div class="form-group">

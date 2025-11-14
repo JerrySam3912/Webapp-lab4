@@ -2,13 +2,30 @@
 <%@ page import="java.sql.*" %>
 <%
     String idParam = request.getParameter("id");
+    String studentCode = request.getParameter("student_code");  // EX6.2 - thêm dòng này
     String fullName = request.getParameter("full_name");
     String email = request.getParameter("email");
     String major = request.getParameter("major");
     
+    // EX6.0 - Basic required check (giữ nguyên logic thầy)
     if (idParam == null || fullName == null || fullName.trim().isEmpty()) {
         response.sendRedirect("list_students.jsp?error=Invalid data");
         return;
+    }
+
+    // EX6.2 - Student code pattern validation on edit (2 uppercase letters + 3+ digits)
+    // studentCode thường là readonly trong form, nhưng ta vẫn validate cho đúng đề.
+    if (studentCode == null || !studentCode.matches("[A-Z]{2}[0-9]{3,}")) {
+        response.sendRedirect("edit_student.jsp?id=" + idParam + "&error=Invalid student code format");
+        return;
+    }
+
+    // EX6.1 - Email validation (optional)
+    if (email != null && !email.trim().isEmpty()) {
+        if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            response.sendRedirect("edit_student.jsp?id=" + idParam + "&error=Invalid email format");
+            return;
+        }
     }
     
     int studentId = Integer.parseInt(idParam);
